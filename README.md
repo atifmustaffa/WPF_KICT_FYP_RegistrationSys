@@ -1,2 +1,8 @@
-# CSC1102 WPF_KICT_FYP_RegistrationSys
-IIUM-KICT Web Programming Fundamental Group Project
+# IIUM-CSC1102-WPF-KICT_FYP_RegistrationSys
+Web Programming Fundamental Group Project
+
+Group Members:
+Muhammad 'Atif bin Mustaffa
+Muhammad Azfar bin Hamzah
+Abdul Hadi bin Noordin
+Fikri Arif bin Ahmad Sabri
