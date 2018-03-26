@@ -1,0 +1,324 @@
+<html>
+	<head>
+		<title>Student::FYP Registration</title>
+		<link rel="shortcut icon" href="http://10.101.237.82/~atif/ico/Derp.ico">
+		<link rel="stylesheet" href="./studentFormPage_styles.css" type="text/css">
+		<link rel="stylesheet" href="./fonts.css" type="text/css">
+		<script src="./jquery.min.js"></script>
+		<script src="./myJavascript.js"></script>
+		<script type="text/javascript">
+		
+			// Show nav bar on on scroll down
+			var didScroll;
+
+			$(window).scroll(function(event){
+				didScroll = true;
+			});
+
+			setInterval(function() {
+				if (didScroll) {
+					hasScrolled();
+					didScroll = false;
+				}
+			}, 250);
+
+			function hasScrolled() {
+				var st = $(this).scrollTop();
+				if (st > 85)
+					$('header').removeClass('nav-hide').addClass('nav-show');
+				
+				else if(st <= 85)
+					$('header').removeClass('nav-show').addClass('nav-hide');
+				
+			}
+			
+			$(document).ready(function() {
+			
+				var userIndex = localStorage.getItem("userIndex");
+				
+				if(userIndex == null) {
+					alert("Please Log In");
+					window.open('./mainPage.html', "_self");
+				}
+				
+				$("#registerPopup").hide();
+				
+				var f = document.myForm;
+					
+				$("#topnavlogout, .topnavlogout").click(function () {
+					logout();
+				});
+				
+				$("#btnCancel").click(function () {
+					window.open('./homePage.html', "_self");
+				});
+				
+				f.studentName.value = database.student[userIndex].name;
+				
+				$("select[name='specialization']").change(function () {
+					var text = "";
+					
+					switch($("select[name='specialization'] option:selected").index()){
+						case 1: 
+							for(var i = 0; i < database.staff.length; i++){
+								if(database.staff[i].spec == "Computer Science" && database.staff[i].coordinator == false)
+									text += "<input type='radio' name='lecturer' value='" + database.staff[i].name + "'/>" + database.staff[i].name + "<br>";
+							}
+							
+							$("#listLecturer").html(text);
+							break;
+						case 2: 
+							for(var i = 0; i < database.staff.length; i++){
+								if(database.staff[i].spec == "Information Technology" && database.staff[i].coordinator == false)
+									text += "<input type='radio' name='lecturer' value='" + database.staff[i].name + "'/>" + database.staff[i].name + "<br>";
+							}
+							
+							$("#listLecturer").html(text);
+							break;
+						case 3: 
+							for(var i = 0; i < database.staff.length; i++){
+								if(database.staff[i].spec == "Information System" && database.staff[i].coordinator == false) 
+									text += "<input type='radio' name='lecturer' value='" + database.staff[i].name + "'/>" + database.staff[i].name + "<br>";
+							}
+							
+							$("#listLecturer").html(text);
+							break;
+					}
+						
+				});
+				
+				$("#btnSubmit").click(function () {
+					
+					var valid = true;
+					var finalText = "";
+					
+					// Student Part
+					var y = f.icpassport.value;
+					if (f.studentName.value == "" || f.mahallah.value == "" || f.address.value == "" || f.contactNum.value == "" || f.email.value == "" || f.projetTitle.value == "" || f.specialization.selectedIndex == 0 || (f.gender[0].checked == false && f.gender[1].checked == false) || f.enddate.value == "" || f.startdate.value == "" || f.gpa.value == "" || f.cgpa.value == "") {
+						alert("Please fill in all fields!");
+						valid = false;
+					}
+					else {
+						if (y.length == 9 || y.length == 12)
+							valid = true;
+						else {
+							alert("IC/Passport is not valid");
+							valid = false;
+						}
+						
+						if(f.contactNum.value.length > 12 || f.contactNum.value.length < 9){
+							alert("Contact Number is not valid");
+							valid = false;
+						}
+						
+						var e = f.email.value;
+						var atpos = e.indexOf("@");
+						var dotpos = e.lastIndexOf(".");
+						if (atpos < 1 || dotpos < atpos+2 || dotpos+2 >= e.length) {
+							alert("E-mail address is not valid");
+							return false;
+						}
+						
+						if(f.gpa.value > 4 || f.gpa.value < 0){
+							alert("GPA is not valid");
+							valid = false;
+						}
+						
+						if(f.cgpa.value > 4 || f.cgpa.value < 0){
+							alert("CGPA is not valid");
+							valid = false;
+						}
+						
+						if(f.enddate.value < f.startdate.value){
+							alert("The Date is not valid!");
+							valid = false;
+						}
+						
+						if($("input[name='lecturer']").is(':checked') == false){
+							alert("Please select a lecturer!");
+							valid = false;
+						}
+						
+						if($("input[name='aggrement']").is(':checked') == false){
+							alert("Please tick aggrement!");
+							valid = false;
+						}
+						
+					}
+						
+					finalText += "<br>Name: " +f.studentName.value;
+					finalText += "<br>IC No.: " +f.icpassport.value;
+					finalText += "<br>Mahallah: " +f.mahallah.value;
+					finalText += "<br>Address: " +f.address.value;
+									
+					var gender;
+					if(f.gender[0].checked == true)
+						gender = "Male";
+					else
+						gender = "Female";
+					
+					finalText += "<br>Gender: "+gender;
+					finalText += "<br>Contact No.: "+f.contactNum.value;
+					finalText += "<br>Email: "+f.email.value;
+					finalText += "<br>GPA: " +f.gpa.value;
+					finalText += "<br>CGPA: " +f.cgpa.value;
+					
+					finalText += "<br>Start Date: " +f.startdate.value;
+					finalText += "<br>End Date: " +f.enddate.value;
+		
+					finalText += "<br>Project Title: " +f.projetTitle.value;
+					
+					var lectName = $('input[name="lecturer"]:checked').val();
+					var specialization = $('select[name="specialization"] option:selected').val();
+					
+					finalText += "<br>Supervisor: " + lectName;
+					
+					if(valid) {
+						alert("Submission Successful!");
+						document.getElementById("result").innerHTML = finalText;
+						
+						$("#registerPopup").slideDown(800);
+						
+						addFYP(userIndex, f.studentName.value, database.student[userIndex].id, f.projetTitle.value, specialization, "Under Approval", lectName);
+						
+						$("#btnOk").click(function () {
+							window.open('./homePage.html', "_self");
+						});
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header class="nav-hide">
+			<nav id= "topnav">
+				<ul id= "menu">
+					<li style="float: left"><a href= "./homePage.html">KICT FYP Registration</a></li>
+					<li style="float: right"><a class="topnavlogout" href="javascript:void(0)">Logout</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(0)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(385)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+		</header>
+		<main class="main">
+			<nav id= "mainnav">
+				<ul id= "mainmenu">
+					<li style="float: left"><a href="./homePage.html">KICT FYP Registration</a></li>
+					<li style="float: right"><a id="topnavlogout" href="javascript:void(0)">Logout</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(0)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(385)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+			<div id="rightSide">
+				<div id="aboutUs">
+					<h2 id="sectionTitle">About Us</h2>
+					<hr>
+					<p>This website was created as an online website for Final Year Project(FYP) Registration for Kulliyyah of Information Communication and Technology, KICT
+					International Islamic University of Malaysia (IIUM). This website is a project for Web Programming Fundamental 2016 Section 2.
+					This website is only for educational purpose.
+					</p>
+				</div>
+				<div id="contactUs">
+					<h2 id="sectionTitle">Contact Us</h2>
+					<hr>
+					<p>Please fill in the form below and submit. We will try our best to give feedback as soon as possible.<br><br>
+					Tel: +60132428737<br>
+					Email: <a href="mailto: aretif95@gmail.com">aretif95@gmail.com</a>
+					</p>
+					<form name="contactForm" id="contactForm">
+						<table id="tableForm">
+							<tr><td><input type="text" name="name" placeholder="Name"></td></tr>
+							<tr><td><input type="text" name="email" placeholder="Email"></td></tr>
+							<tr><td><textarea name="message" rows="5" cols="20" placeholder="Your Message"></textarea></td></tr>
+						</table><br>
+						<input type="button" name="submit" value="Submit" onclick="contactUs(document.contactForm)">
+						<input type="button" name="clear" value="Clear" onclick="document.contactForm.reset()">
+					</form>
+				</div>
+			</div>
+			<div id="leftSide">
+				<form name="myForm" class="myForm">
+					<div id="formPart">
+						<h2 id="sectionTitle">FYP Registration</h2>
+						<hr>
+						<div id="studentPart">
+							<h3 id="partTitle">Student Particulars</h3>
+							<hr>
+							<br>
+							<p>Please fill all the required details below. *</p>
+							<table>
+								<tr><td>Name: *</td><td><input type="text" name="studentName" size="60" placeholder="Name"></td></tr>
+								<tr><td>IC/Passport Number: *</td><td><input type="text" name="icpassport" size="25" placeholder="IC/Passport Number"></td></tr>
+								<tr><td>Mahallah: *</td><td><input type="text" name="mahallah" size="40" placeholder="Mahallah"></td></tr>
+								<tr><td>Home Address: *</td><td><textarea rows="4" cols="50" name="address" placeholder="Home Address"></textarea></td></tr>
+								<tr><td>Gender: *</td><td><input type="radio" name="gender" value="Male">Male <input type="radio" name="gender" value="Female">Female</td></tr>
+								<tr><td>Contact Number: *</td><td><input type="text" name="contactNum" size="20" placeholder="Contact Number"></td></tr>
+								<tr><td>Email: *</td><td><input type="email" name="email" size="40" placeholder="Email"></td></tr>
+								<tr><td>GPA: *</td><td><input type="text" name="gpa" size="10" placeholder="GPA"></td></tr>
+								<tr><td>CGPA: *</td><td><input type="text" name="cgpa" size="10" placeholder="CGPA"></td></tr>
+								<tr><td>Start Date: *</td><td>
+									<input id="date" type="date" name="startdate" placeholder="dd/mm/yyyy" size="6">
+									
+									</td>
+								</tr>
+								<tr><td>End Date: *</td><td>
+									<input id="date" type="date" name="enddate" placeholder="dd/mm/yyyy" size="6">
+									
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div id="supervisorPart">
+							<h3 id="partTitle">Supervisor and Project Information</h3>
+							<hr>
+							<table>
+								<tr><td>Project Title: *</td><td><input type="text" name="projetTitle" size="60" placeholder="Project Title"></td></tr>
+								<tr><td>Area of Specialization: *</td><td>
+									<select name="specialization">
+										<option>Specialization</option>
+										<option>Computer Science</option>
+										<option>Information Technology</option>
+										<option>Information System</option>
+									</select></td>
+								</tr>
+								<tr><td>Select Lecturer: *</td><td><span id="listLecturer"></span></td></tr>
+							</table>
+						</div><br><br>
+						<div class="buttons">
+							<input type="checkbox" name="aggrement">I hereby agree that information above are correct</input><br><br>
+							<a id="btnSubmit" href="javascript:void(0)">Submit</a>
+							<a id="btnClear" href="javascript:document.myForm.reset()">Clear</a>
+							<a id="btnCancel" href="javascript:void(0)">Cancel</a>
+						</div>
+					</div>
+					<div id="registerPopup">
+						<h2 id="sectionTitle">FYP Registration</h2>
+						<hr>
+						<h3 id="partTitle">Confirmation</h3>
+						<hr>
+						<span id="result"></span>
+						<div><a id="btnOk" href="javascript:void(0)">Ok</a></div>
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class= "mainFooter">
+				Copyright &copy; 2016<br>
+				A Project for Web Programming Fundamental 2016 (Section 2)<br>
+				Developed By:<br>
+				Group 5<br>
+				Muhammad 'Atif bin Mustaffa 1429619<br>
+				Muhammad Azfar bin Hamzah 1426417<br>
+				Abdul Hadi bin Noordin 1428711<br>
+				Fikri Arif bin Ahmad Sabri 1423231
+			</div>
+		</footer>
+	</body>
+	<footer>
+	</footer>
+</html>

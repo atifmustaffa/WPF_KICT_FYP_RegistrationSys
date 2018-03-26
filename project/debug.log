@@ -1,0 +1,1 @@
+[1117/201021:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)

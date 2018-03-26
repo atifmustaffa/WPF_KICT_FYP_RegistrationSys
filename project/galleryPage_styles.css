@@ -1,0 +1,177 @@
+html {
+	background-image : url(./images/besar.jpg);
+	background-attachment: fixed;
+    background-position: top;
+}
+body {
+	width: 1100px;
+	margin: auto;
+	font-size: 18px;
+}
+body, input, textarea {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+a {
+	text-decoration: none;
+}
+#title, #topnav {
+	text-align: center;
+}
+#rightSide {
+	float: right;
+	width: 300px;
+}
+#leftSide {
+	float: left;
+	width: 760px;
+}
+#aboutUs, #contactUs, #galleryFYP {
+	background: #f0f0f0;
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-bottom: 30px;
+	font-size: 16px;
+}
+#title h3 {
+	color: white;
+	font-size: 50px;
+	font-family: 'Kaushan Script', cursive;
+}
+#topnav ul , #mainnav ul {
+	padding: 0;
+}
+#topnav ul li, #mainnav ul li {
+	display: inline;
+	padding: 20px;
+}
+#topnav ul li a, #mainnav ul li a, .btnLogin {
+	padding: 16px 3;
+	font-family: 'Patua One', cursive;
+	font-size: 20px;
+}
+#topnav ul li a {
+	color: white;
+}
+#mainnav ul li a {
+	color: white;
+}
+#topnav {
+	margin: auto;
+	width: 85%;
+	height: 65px;
+}
+#mainnav {
+	margin-top: 30px;
+	height: 80px;
+	line-height: 8px;
+}
+header {
+	z-index: 9999;
+    position: fixed;
+    top: 0;
+	left: 0;
+	width: 100%;
+    transition: top 0.2s ease-in-out;
+	background-color: rgba(24,24,24,1);
+}
+#galleryFYP div img {
+	width: 300px;
+	padding: 5px;
+}
+#galleryFYP div {
+	text-align: center;
+	padding-bottom: 20px;
+}
+.nav-show {
+    top: -10px;
+}
+.nav-hide {
+    top: -90px;
+}
+#sectionTitle {
+	text-align: center;
+	font-family: 'Patua One', cursive;
+	font-size: 22px;
+}
+#contactForm {
+	padding: 20px;
+	text-align: center;
+}
+#tableForm {
+	width: 200px;
+	margin: auto;
+	font-size: 16px;
+}
+#tableForm input[type="text"], #tableForm textarea {
+	width: 100%;
+	resize: none;
+}
+#tableForm td {
+	vertical-align: top;
+	border: 1px solid white;
+	padding: 3px;
+	color: #323232;
+}
+.footer {
+	color: white;
+	text-align: center;
+	font-size: 14px;
+	padding: 20px;
+	clear: both;
+}
+#topnav a:hover, #mainnav a:hover {
+	color: 	#ff8000;
+	border-bottom: 5px solid 	#ff8000;
+	-webkit-transition: 0.1s linear;
+    transition: 0.15s linear;
+}
+#title h3:hover {
+	color: #ff8700;
+	-webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+}
+
+.thumbnail {
+	display: inline-block; /* center images in div */
+	margin: 0;
+	text-align: center;
+}
+
+figcaption.popup {
+	background: #f0f0f0;
+	position: fixed;
+	
+	/* drop Shadow */
+	-webkit-box-shadow: 0 0 100px #a9a9a9;
+	-moz-box-shadowl: 0 0 100px #a9a9a9;
+	box-shadow: 0 0 100px black;
+	
+	/* hide ulti hover */
+	visibility: hidden;
+}
+.thumbnail img {
+	width: 500px;
+	z-index: -99;	
+}
+
+
+figure.thumbnail:hover figcaption.popup {
+	background: #f0f0f0;
+	position: fixed;
+	padding: 10px;
+	top: 50%;
+	left: 50%;
+    width: 720px;
+	height: 484px;
+	margin: auto;
+	margin-left: -360;
+	margin-top: -242;
+	
+	/* upon hover */
+	visibility: visible;
+}
+
+figure.thumbnail img:hover {
+	opacity: 0.7;
+}
+figcaption.popup img:hover { opacity: 1.0; }

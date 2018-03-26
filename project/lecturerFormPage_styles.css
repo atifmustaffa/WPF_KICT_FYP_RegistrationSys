@@ -1,0 +1,147 @@
+html {
+	background-image : url(./images/besar.jpg);
+	background-attachment: fixed;
+    background-position: top;
+}
+body {
+	width: 1100px;
+	margin: auto;
+	font-size: 18px;
+}
+body, input, textarea {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16;
+	resize: none;
+}
+a {
+	text-decoration: none;
+}
+#topnav {
+	text-align: center;
+}
+#rightSide {
+	float: right;
+	width: 300px;
+}
+#leftSide {
+	float: left;
+	width: 760px;
+}
+#aboutUs, #contactUs, #formPart {
+	background: #f0f0f0;
+	border-radius: 20px;
+	padding: 10px 20px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	font-size: 16px;
+}
+#coordinatorPart table {
+	margin: auto;
+	padding: 30px;	
+	vertical-align: top;
+}
+#coordinatorPart table td {
+	padding: 7px;	
+	vertical-align: top;
+}
+#topnav ul , #mainnav ul {
+	padding: 0;
+}
+#topnav ul li, #mainnav ul li {
+	display: inline;
+	padding: 20px;
+}
+#topnav ul li a, #mainnav ul li a {
+	padding: 16px 3;
+	font-family: 'Patua One', cursive;
+	font-size: 20px;
+}
+#topnav ul li a {
+	color: white;
+}
+#mainnav ul li a {
+	color: white;
+}
+#topnav {
+	margin: auto;
+	width: 85%;
+	height: 65px;
+}
+#mainnav {
+	margin-top: 30px;
+	height: 80px;
+	line-height: 8px;
+}
+header {
+    position: fixed;
+    top: 0;
+	left: 0;
+	width: 100%;
+    transition: top 0.2s ease-in-out;
+	background-color: rgba(24,24,24,1);
+}
+.nav-show {
+    top: -10px;
+}
+.nav-hide {
+    top: -90px;
+}
+#sectionTitle {
+	text-align: center;
+	font-family: 'Patua One', cursive;
+	font-size: 22px;
+}
+#contactForm {
+	padding: 20px;
+	text-align: center;
+}
+#tableForm {
+	width: 200px;
+	margin: auto;
+	font-size: 16px;
+}
+#tableForm input[type="text"], #tableForm textarea {
+	width: 100%;
+	resize: none;
+}
+#tableForm td {
+	vertical-align: top;
+	border: 1px solid white;
+	padding: 3px;
+	color: #323232;
+}
+.footer {
+	color: white;
+	text-align: center;
+	font-size: 14px;
+	padding: 20px;
+	clear: both;
+}
+#topnav a:hover, #mainnav a:hover {
+	color: 	#ff8000;
+	border-bottom: 5px solid 	#ff8000;
+	-webkit-transition: 0.1s linear;
+    transition: 0.15s linear;
+}
+.buttons {
+	text-align: center;
+	margin: 50px auto;
+}
+.buttons a {
+	padding: 10px 20px;
+	color: white;
+	background-color: rgba(24,24,24,1);
+}
+.buttons a:hover {
+	background-color: #ff8000;
+	-webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
+}
+
+#fypList table {
+	width: 500px;
+	margin: 0;
+}
+#fypList table tr td:first-child {
+	width: 130px;
+}

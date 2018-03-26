@@ -1,0 +1,226 @@
+<html>
+	<head>
+		<title>KICT FYP Registration</title>
+		<link rel="shortcut icon" href="http://10.101.237.82/~atif/ico/Derp.ico">
+		<link rel="stylesheet" href="./mainPage_styles.css" type="text/css">
+		<link rel="stylesheet" href="./fonts.css" type="text/css">
+		<script src="./jquery.min.js"></script>
+		<script src="./myJavascript.js"></script>
+		<script type="text/javascript">
+		
+			// Show nav bar on on scroll down
+			var didScroll;
+
+			$(window).scroll(function(event){
+				didScroll = true;
+			});
+
+			setInterval(function() {
+				if (didScroll) {
+					hasScrolled();
+					didScroll = false;
+				}
+			}, 250);
+
+			function hasScrolled() {
+				var st = $(this).scrollTop();
+				if (st > 85) {
+					$('header').removeClass('nav-hide').addClass('nav-show');
+					if(st > 390)
+						$('#topnavlogin, #topnavregister').fadeIn(1000);
+					else
+						$('#topnavlogin, #topnavregister').fadeOut(1000);
+				}
+				
+				else if(st <= 85)
+					$('header').removeClass('nav-show').addClass('nav-hide');
+				
+			}
+			
+			// Slider
+			$(function() {
+
+				//settings for slider
+				var width = 590;
+				var animationSpeed = 2000;
+				var pause = 5000;
+				var currentSlide = 1;
+
+				//cache DOM elements
+				var $slider = $('#imageSlider');
+				var $slideContainer = $('#slides', $slider);
+				var $slides = $('#slides li', $slider);
+
+				var interval;
+
+				function startSlider() {
+					interval = setInterval(function() {
+						$slideContainer.animate({'margin-left': '-='+width}, animationSpeed, function() {
+							if (++currentSlide === $slides.length) {
+								currentSlide = 1;
+								$slideContainer.css('margin-left', 0);
+							}
+						});
+					}, pause);
+				}
+				function pauseSlider() {
+					clearInterval(interval);
+				}
+
+				$slideContainer
+					.on('mouseenter', pauseSlider)
+					.on('mouseleave', startSlider);
+
+				startSlider();
+
+			});
+			
+			$(document).ready(function() {
+			
+				if(localStorage.getItem("firstTime") == null)
+					localStorage.setItem("fyp", JSON.stringify(database.fyp));
+				 
+				 // Reset localStorage
+				$(".reset").click(function() { 
+					localStorage.removeItem("firstTime");
+					localStorage.removeItem("fyp");
+					alert("Database has been reset");
+				});
+				
+				localStorage.removeItem("userIndex");
+				localStorage.removeItem("loginType");
+				var storedFYP = JSON.parse(localStorage.getItem("fyp"));
+				
+				$("#loginPopup, #topnavlogin").hide();
+				
+				$(".btnLogin, #topnavlogin").click(function() {
+					$("#loginPopup").slideDown(800);
+				});
+				$("#closeButton, #btnCancel").click(function() {
+					$("#loginPopup").slideUp(800);
+					document.loginForm.reset();
+				});
+				$("#btnLogin").click(function() {
+					if(document.loginForm.userid.value == "" || document.loginForm.pass.value == "")
+						alert("Please fill in matric no/password");
+					else if(document.loginForm.logintype[0].checked == false && document.loginForm.logintype[1].checked == false)
+						alert("Please select login type!");
+					else if(document.loginForm.logintype[0].checked == true)
+						validateLoginStudent(document.loginForm);
+					else if(document.loginForm.logintype[1].checked == true)
+						validateLoginStaff(document.loginForm);
+					
+				});
+				
+				localStorage.setItem("firstTime", false);
+			});
+		</script>
+	</head>
+	<body>
+		<header class="nav-hide">
+			<nav id= "topnav">
+				<ul id= "menu">
+					<li style="float: left"><a href= "./mainPage.html">KICT FYP Registration</a></li>
+					<li style="float: right"><a id="topnavlogin" href="javascript:void(0)">Login</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(576)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(836)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href="http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+		</header>
+		<main class="main">
+			<nav id= "mainnav">
+				<ul id= "mainmenu">
+					<li style="float: left"><a href="./mainPage.html">KICT FYP Registration</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(576)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(836)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+			<table id="mainTable">
+				<tr>
+					<td id="leftData">
+						<div id="imageSlider">
+							<ul id="slides">
+								<li><img src="./images/iium.jpg"/></li>
+								<li><img src="./images/kict_building3.jpg"/></li>
+								<li><img src="./images/kict_building2.jpg"/></li>
+								<li><img src="./images/uiam.jpg"/></li>
+								<li><img src="./images/iium.jpg"/></li>
+							</ul>
+						</div>
+					</td>
+					<td id="rightData">
+						<div id="title">
+							<h3>Welcome to KICT FYP Registration Website</h3>
+						</div>
+						<div class="btnMember">
+							<a class="btnLogin" href="javascript:void(0)">Login</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div id="aboutUs">
+				<h2 id="sectionTitle">About Us</h2>
+				<hr>
+				<p>This website was created as an online website for Final Year Project(FYP) Registration for Kulliyyah of Information Communication and Technology, KICT
+				International Islamic University of Malaysia (IIUM). This website is a project for Web Programming Fundamental 2016 Section 2.
+				This website is only for educational purpose.
+				</p>
+			</div>
+			<div id="contactUs">
+				<h2 id="sectionTitle">Contact Us</h2>
+				<hr>
+				<p>Please fill in the form below and submit. We will try our best to give feedback as soon as possible.<br><br>
+				Tel: +60132428737<br>
+				Email: <a href="mailto: aretif95@gmail.com">aretif95@gmail.com</a>
+				</p>
+				<form name="contactForm" id="contactForm">
+					<table id="tableForm">
+						<tr><td><input type="text" name="name" placeholder="Name"></td></tr>
+						<tr><td><input type="text" name="email" placeholder="Email"></td></tr>
+						<tr><td><textarea name="message" rows="5" cols="20" placeholder="Your Message"></textarea></td></tr>
+					</table><br>
+					<input type="button" name="submit" value="Submit" onclick="contactUs(document.contactForm)">
+					<input type="button" name="clear" value="Clear" onclick="document.contactForm.reset()">
+				</form>
+			</div>
+			<div id="loginPopup">
+				<div id="memberTitle">
+					<h4>Login</h4>
+					<a id="closeButton" href="javascript:void(0)">x</a>
+				</div>
+				<form name="loginForm" id="loginForm">
+					<table id="tableLogin">
+						<tr><td>Matric No.<input type="text" name="userid"></td></tr>
+						<tr><td>Password<input type="password" name="pass"></td></tr>
+						<tr><td><input type="radio" name="logintype">Student</input><input type="radio" name="logintype">Staff</input></td></tr>
+						<tr><td><input type="checkbox">Remember my password</input></td></tr>
+					</table>
+					<br>
+					<a id="btnLogin" href="javascript:void(0)">Login</a>
+					<a id="btnCancel" href="javascript:void(0)">Cancel</a>
+					<p>For login problems, please contact us.</p>
+				</form>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class= "mainFooter">
+				Copyright &copy; 2016<br>
+				A Project for Web Programming Fundamental 2016 (Section 2)<br>
+				Developed By:<br>
+				Group 5<br>
+				Muhammad 'Atif bin Mustaffa 1429619<br>
+				Muhammad Azfar bin Hamzah 1426417<br>
+				Abdul Hadi bin Noordin 1428711<br>
+				Fikri Arif bin Ahmad Sabri 1423231
+				<br><br><a class='reset' href="">reset</a>
+			</div>
+		</footer>
+		
+	</body>
+	<footer>
+	</footer>
+</html>

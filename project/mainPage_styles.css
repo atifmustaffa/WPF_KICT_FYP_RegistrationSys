@@ -1,0 +1,213 @@
+html {
+	background-image : url(./images/besar.jpg);
+	background-attachment: fixed;
+    	background-position: top;
+}
+body {
+	width: 1100px;
+	margin: auto;
+	font-size: 18px;
+}
+body, input, textarea {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+a {
+	text-decoration: none;
+}
+#title, #topnav {
+	text-align: center;
+}
+#aboutUs, #contactUs {
+	background: #f0f0f0;
+	border-radius: 20px;
+	padding: 30px 80px;
+	margin-bottom: 30px;
+}
+#title h3 {
+	color: white;
+	font-size: 50px;
+	font-family: 'Kaushan Script', cursive;
+}
+#topnav ul , #mainnav ul {
+	padding: 0;
+}
+#topnav ul li, #mainnav ul li {
+	display: inline;
+	padding: 20px;
+}
+#topnav ul li a, #mainnav ul li a, .btnLogin {
+	padding: 16px 3;
+	font-family: 'Patua One', cursive;
+	font-size: 20px;
+}
+#topnav ul li a {
+	color: white;
+}
+#mainnav ul li a {
+	color: white;
+}
+#topnav {
+	margin: auto;
+	width: 85%;
+	height: 65px;
+}
+#mainnav {
+	margin-top: 30px;
+	height: 80px;
+	line-height: 8px;
+}
+header {
+    position: fixed;
+    top: 0;
+	left: 0;
+	width: 100%;
+    transition: top 0.2s ease-in-out;
+	background-color: rgba(24,24,24,1);
+}
+.nav-show {
+    top: -10px;
+}
+.nav-hide {
+    top: -90px;
+}
+div.btnMember {
+	text-align: center;
+	padding: 20px 50px;
+	margin-bottom: 30px;
+}
+#mainTable {
+	margin: 70px 0 130px 0;
+}
+.btnLogin {
+	padding: 20px 150px;
+	color: white;
+	background-color: rgba(24,24,24,1);
+}
+#imageSlider {
+	z-index: -1;
+	height: 340px;
+	width: 590px;
+	overflow: hidden;
+}
+#slides {
+	display: block;
+	height: auto;
+	width: 3000px;
+	margin: 0;
+	padding: 0;
+}
+#slides li {
+	height: auto;
+	float: left;
+	list-style-type: none;
+}
+#slides img {
+	height: 340px;
+	width: 590px;
+}
+#sectionTitle {
+	text-align: center;
+	font-family: 'Patua One', cursive;
+	font-size: 22px;
+}
+#contactForm {
+	padding: 20px;
+	text-align: center;
+}
+#tableForm {
+	width: 500px;
+	margin: auto;
+	font-size: 16px;
+}
+#tableForm input[type="text"], #tableForm textarea {
+	width: 100%;
+	resize: none;
+}
+#tableForm td {
+	vertical-align: top;
+	border: 1px solid white;
+	padding: 3px;
+	color: #323232;
+}
+.footer {
+	color: white;
+	text-align: center;
+	font-size: 14px;
+	padding: 20px;
+}
+#topnav a:hover, #mainnav a:hover {
+	color: 	#ff8000;
+	border-bottom: 5px solid 	#ff8000;
+	-webkit-transition: 0.1s linear;
+    transition: 0.15s linear;
+}
+.btnLogin:hover {
+	background-color: #ff8000;
+	-webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
+}
+#title h3:hover {
+	color: #ff8700;
+	-webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+}
+#loginPopup {
+	background-color: #f0f0f0;
+	position: fixed;
+	z-index: 9999;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+	height: 420px;
+	width: 364px;
+	margin: auto;
+	margin-top: -210px;
+	margin-left: -182px;
+	/* drop Shadow */
+	-webkit-box-shadow: 0 0 100px #a9a9a9;
+	-moz-box-shadowl: 0 0 100px #a9a9a9;
+	box-shadow: 0 0 100px black;
+}
+#tableLogin {
+	margin: 25px auto 10px auto;
+	width: 260px;
+	height: 130px;
+}
+#tableLogin tr td:first-child {
+	padding: 10px;
+	width: 100px;
+}
+#tableLogin input[type="text"], #tableLogin input[type="password"]{
+	width: 100%;
+	height: 30px;
+	padding: 5px;
+}
+#loginForm {
+	border-top: 1px solid gray;
+	margin-top: 42px;
+}
+#memberTitle h4 {
+	float: left;
+	vertical-align: top;
+	padding: 10px;
+	margin-top: 0;
+}
+#loginPopup form a {
+	background-color: black;
+	padding: 10px 30px;
+	color: white;
+}
+#closeButton {
+	float: right;
+	background-color: black;
+	padding: 10px 15px;
+	color: white;
+}
+#loginPopup a:hover {
+	background-color: #ff8000;
+	-webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
+}
+#loginPopup form p {
+	font-size: small;
+}

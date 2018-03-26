@@ -1,0 +1,250 @@
+<html>
+	<head>
+		<title>View::FYP Registration</title>
+		<link rel="shortcut icon" href="http://10.101.237.82/~atif/ico/Derp.ico">
+		<link rel="stylesheet" href="./viewPage_styles.css" type="text/css">
+		<link rel="stylesheet" href="./fonts.css" type="text/css">
+		<script src="./jquery.min.js"></script>
+		<script src="./myJavascript.js"></script>
+		<script type="text/javascript">
+		
+			// Show nav bar on on scroll down
+			var didScroll;
+
+			$(window).scroll(function(event){
+				didScroll = true;
+			});
+
+			setInterval(function() {
+				if (didScroll) {
+					hasScrolled();
+					didScroll = false;
+				}
+			}, 250);
+
+			function hasScrolled() {
+				var st = $(this).scrollTop();
+				if (st > 85)
+					$('header').removeClass('nav-hide').addClass('nav-show');
+				
+				else if(st <= 85)
+					$('header').removeClass('nav-show').addClass('nav-hide');
+				
+			}
+			
+			function determineDate(app) {
+				if(app == "Approved")
+					return "Approved on";
+				else if(app == "Declined")
+					return "Declined on";
+				else
+					return "Date";
+			}
+				
+			var userIndex = localStorage.getItem("userIndex");
+			var loginType = localStorage.getItem("loginType");
+			var storedFYP = JSON.parse(localStorage.getItem("fyp"));
+			
+			function printFYP(i) {
+				
+					return "<table>" +
+					"<tr><td>Name:</td><td>" + storedFYP[i].name + "</td></tr>" +
+					"<tr><td>Project Title:</td><td>" + storedFYP[i].title + "</td></tr>" +
+					"<tr><td>Approved on:</td><td>" + storedFYP[i].date + "</td></tr>" +
+					"<tr><td>Supervisor:</td><td>" + storedFYP[i].svisor + "</td></tr>" +
+					"</table><hr>";
+			}
+			
+			function printallFYP() {
+				
+					var x = 1;
+					var text = "";
+					for(var i = 0; i < storedFYP.length; i++) {
+						if(storedFYP[i].id == storedFYP[userIndex].id && storedFYP[i].title != "" && loginType == "student") {
+							text += "<table>" +
+									"<tr><td>Name:</td><td>" + storedFYP[i].name + "</td></tr>" +
+									"<tr><td>Project Title:</td><td>" + storedFYP[i].title + "</td></tr>" +
+									"<tr><td>Approval:</td><td>" + storedFYP[i].approval + "</td></tr>" +
+									"<tr><td>" + determineDate(storedFYP[i].approval) + ":</td><td>" + storedFYP[i].date + "</td></tr>" +
+									"<tr><td>Supervisor:</td><td>" + storedFYP[i].svisor + "</td></tr>" +
+									"</table><hr>";
+						}
+						else if(storedFYP[i].approval == "Approved" && storedFYP[i].title != "" && loginType == "coordinator") {
+							text += printFYP(i);
+							x++;
+						}
+					}
+					
+					if(text == "")
+						$('#fypList').html("<center>No projects.</center>");
+					else {
+						$('#fypList').html(text);
+						if(x > 3)
+							$('.search').show(); // if result more than 2, search fyp function will be showed
+					}
+					
+			}
+			
+			$(document).ready(function() {
+				
+				if(userIndex == null) {
+					alert("Please Log In");
+					window.open('./mainPage.html', "_self");
+				}
+				
+				$('.search').hide();
+				
+				printallFYP();
+				
+				$("#topnavlogout, .topnavlogout").click(function () {
+					logout();
+				});
+				$("#btnBack").click(function () {
+					window.open('./homePage.html', "_self");
+				});
+				
+				
+					
+				$("#btnSearch").click(function () {
+				
+				var text = "";
+				var value = document.myForm.searchField.value;
+				
+					switch($("select[name='searchType'] option:selected").index()){
+						case 1: // name
+							for(var i = 0; i < storedFYP.length; i++)
+								if(storedFYP[i].approval == "Approved" && storedFYP[i].title != "" && loginType == "coordinator" && storedFYP[i].name.toLowerCase().includes(value.toLowerCase()))
+									text += printFYP(i);
+							break;
+						case 2: // title
+							for(var i = 0; i < storedFYP.length; i++)
+								if(storedFYP[i].approval == "Approved" && storedFYP[i].title != "" && loginType == "coordinator" && storedFYP[i].title.toLowerCase().includes(value.toLowerCase()))
+									text += printFYP(i);
+							break;
+						case 3: // date
+							for(var i = 0; i < storedFYP.length; i++)
+								if(storedFYP[i].approval == "Approved" && storedFYP[i].title != "" && loginType == "coordinator" && storedFYP[i].date.toLowerCase().includes(value.toLowerCase()))
+									text += printFYP(i);
+							break;
+						case 4: // supervisor
+							for(var i = 0; i < storedFYP.length; i++)
+								if(storedFYP[i].approval == "Approved" && storedFYP[i].title != "" && loginType == "coordinator" && storedFYP[i].svisor.toLowerCase().includes(value.toLowerCase()))
+									text += printFYP(i);
+							break;
+					}
+					if(text == "")
+						$('#fypList').html("<center>Project Not Found.</center>");
+					else
+						$('#fypList').html(text);
+				});
+				
+				$("#btnClear").click(function () {
+					
+					document.myForm.searchField.value = "";
+					printallFYP();
+					
+				});
+				
+			});
+		</script>
+	</head>
+	<body>
+		<header class="nav-hide">
+			<nav id= "topnav">
+				<ul id= "menu">
+					<li style="float: left"><a href= "./homePage.html">KICT FYP Registration</a></li>
+					<li style="float: right"><a class="topnavlogout" href="javascript:void(0)">Logout</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(0)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(385)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+		</header>
+		<main class="main">
+			<nav id= "mainnav">
+				<ul id= "mainmenu">
+					<li style="float: left"><a href="./homePage.html">KICT FYP Registration</a></li>
+					<li style="float: right"><a id="topnavlogout" href="javascript:void(0)">Logout</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(0)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(385)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+			<div id="rightSide">
+				<div id="aboutUs">
+					<h2 id="sectionTitle">About Us</h2>
+					<hr>
+					<p>This website was created as an online website for Final Year Project(FYP) Registration for Kulliyyah of Information Communication and Technology, KICT
+					International Islamic University of Malaysia (IIUM). This website is a project for Web Programming Fundamental 2016 Section 2.
+					This website is only for educational purpose.
+					</p>
+				</div>
+				<div id="contactUs">
+					<h2 id="sectionTitle">Contact Us</h2>
+					<hr>
+					<p>Please fill in the form below and submit. We will try our best to give feedback as soon as possible.<br><br>
+					Tel: +60132428737<br>
+					Email: <a href="mailto: aretif95@gmail.com">aretif95@gmail.com</a>
+					</p>
+					<form name="contactForm" id="contactForm">
+						<table id="tableForm">
+							<tr><td><input type="text" name="name" placeholder="Name"></td></tr>
+							<tr><td><input type="text" name="email" placeholder="Email"></td></tr>
+							<tr><td><textarea name="message" rows="5" cols="20" placeholder="Your Message"></textarea></td></tr>
+						</table><br>
+						<input type="button" name="submit" value="Submit" onclick="contactUs(document.contactForm)">
+						<input type="button" name="clear" value="Clear" onclick="document.contactForm.reset()">
+					</form>
+				</div>
+			</div>
+			<div id="leftSide">
+				<form name="myForm" class="myForm">
+					<div id="formPart">
+						<h2 id="sectionTitle">FYP Registration</h2>
+						<hr>
+						<div id="coordinatorPart">
+							<h3 id="header">View FYP Status</h3>
+							<hr>
+							<div class="search">
+							<input id="searchField" type="text" name="searchField" size="30" placeholder="Search FYP">
+							<select id="searchType" name="searchType">
+										<option>Search by</option>
+										<option>Name</option>
+										<option>Title</option>
+										<option>Date</option>
+										<option>Supervisor</option>
+									</select>
+							<a id="btnSearch" href="javascript:void(0)">Search</a>
+							<a id="btnClear" href="javascript:void(0)">Clear Search</a>
+							</div>
+							<table>
+								<tr><th>List of Projects:<br><hr></th></tr>
+								<tr><td>
+									<span id="fypList"></span>
+								</td></tr>
+							</table>
+						</div>
+						<br><br>
+						<div class="buttons"><a id="btnBack" href="javascript:void(0)">Back</a></div>
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class= "mainFooter">
+				Copyright &copy; 2016<br>
+				A Project for Web Programming Fundamental 2016 (Section 2)<br>
+				Developed By:<br>
+				Group 5<br>
+				Muhammad 'Atif bin Mustaffa 1429619<br>
+				Muhammad Azfar bin Hamzah 1426417<br>
+				Abdul Hadi bin Noordin 1428711<br>
+				Fikri Arif bin Ahmad Sabri 1423231
+			</div>
+		</footer>
+	</body>
+	<footer>
+	</footer>
+</html>

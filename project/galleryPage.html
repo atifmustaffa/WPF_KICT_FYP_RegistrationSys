@@ -1,0 +1,188 @@
+<html>
+	<head>
+		<title>Gallery::FYP Registration</title>
+		<link rel="shortcut icon" href="http://10.101.237.82/~atif/ico/Derp.ico">
+		<link rel="stylesheet" href="./galleryPage_styles.css" type="text/css">
+		<link rel="stylesheet" href="./fonts.css" type="text/css">
+		<script src="./jquery.min.js"></script>
+		<script src="./myJavascript.js"></script>
+		<script type="text/javascript">
+		
+			// Show nav bar on on scroll down
+			var didScroll;
+
+			$(window).scroll(function(event){
+				didScroll = true;
+			});
+
+			setInterval(function() {
+				if (didScroll) {
+					hasScrolled();
+					didScroll = false;
+				}
+			}, 250);
+
+			function hasScrolled() {
+				var st = $(this).scrollTop();
+				if (st > 85)
+					$('header').removeClass('nav-hide').addClass('nav-show');
+				
+				else if(st <= 85)
+					$('header').removeClass('nav-show').addClass('nav-hide');
+				
+			}
+			
+			$(document).ready(function() {
+			
+				$("#topnavlogout, .topnavlogout").hide();
+				
+				var userIndex = localStorage.getItem("userIndex");
+				
+				$("#topnavlogout, .topnavlogout").click(function () {
+					logout();
+				});
+				
+				if(userIndex != null)
+					$("#topnavlogout, .topnavlogout").show();
+					
+				$("#home, .home").click(function () {
+					if(userIndex != null)
+						window.open('./homePage.html', "_self");
+					else
+						window.open('./mainPage.html', "_self");
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header class="nav-hide">
+			<nav id= "topnav">
+				<ul id= "menu">
+					<li style="float: left"><a id='home' href= "javascript:void(0)">KICT FYP Registration</a></li>
+					<li style="float: right"><a class="topnavlogout" href="">Logout</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(0)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(375)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+		</header>
+		<main class="main">
+			<nav id= "mainnav">
+				<ul id= "mainmenu">
+					<li style="float: left"><a class='home' href="javascript:void(0)">KICT FYP Registration</a></li>
+					<li style="float: right"><a id="topnavlogout" href="">Logout</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(0)">About Us</a></li>
+					<li style="float: right"><a href= "javascript:$(window).scrollTop(375)">Contact Us</a></li>
+					<li style="float: right"><a target="_blank" href= "http://www.iium.edu.my/">IIUM</a></li>
+					<li style="float: right"><a href= "./galleryPage.html">Gallery</a></li>
+				</ul>	
+			</nav>
+			<div id="rightSide">
+				<div id="aboutUs">
+					<h2 id="sectionTitle">About Us</h2>
+					<hr>
+					<p>This website was created as an online website for Final Year Project(FYP) Registration for Kulliyyah of Information Communication and Technology, KICT
+					International Islamic University of Malaysia (IIUM). This website is a project for Web Programming Fundamental 2016 Section 2.
+					This website is only for educational purpose.
+					</p>
+				</div>
+				<div id="contactUs">
+					<h2 id="sectionTitle">Contact Us</h2>
+					<hr>
+					<p>Please fill in the form below and submit. We will try our best to give feedback as soon as possible.<br><br>
+					Tel: +60132428737<br>
+					Email: <a href="mailto: aretif95@gmail.com">aretif95@gmail.com</a>
+					</p>
+				<form name="contactForm" id="contactForm">
+						<table id="tableForm">
+							<tr><td><input type="text" name="name" placeholder="Name"></td></tr>
+							<tr><td><input type="text" name="email" placeholder="Email"></td></tr>
+							<tr><td><textarea name="message" rows="5" cols="20" placeholder="Your Message"></textarea></td></tr>
+						</table><br>
+						<input type="button" name="submit" value="Submit" onclick="contactUs(document.contactForm)">
+						<input type="button" name="clear" value="Clear" onclick="document.contactForm.reset()">
+					</form>
+				</div>
+			</div>
+			<div id="leftSide">
+				<div id="galleryFYP">
+					<h2 id="sectionTitle">KICT FYP Gallery</h2>
+					<hr>
+					<p>FYP Showcase 2015</p>
+					<div>
+						<figure class= "thumbnail">
+							<img src="./images/fyp (1).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (1).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (2).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (2).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (3).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (3).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (4).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (4).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (5).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (5).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (6).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (6).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (7).jpg">
+							<figcaption class= "popup">
+								<img style="width:700px" src="./images/fyp (7).jpg">
+							</figcaption>
+						</figure>
+						
+						<figure class= "thumbnail">
+							<img src="./images/fyp (8).jpg">
+							<figcaption class= "popup">
+							<img style="width:700px" src="./images/fyp (8).jpg">
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class= "mainFooter">
+				Copyright &copy; 2016<br>
+				A Project for Web Programming Fundamental 2016 (Section 2)<br>
+				Developed By:<br>
+				Group 5<br>
+				Muhammad 'Atif bin Mustaffa 1429619<br>
+				Muhammad Azfar bin Hamzah 1426417<br>
+				Abdul Hadi bin Noordin 1428711<br>
+				Fikri Arif bin Ahmad Sabri 1423231
+			</div>
+		</footer>
+	</body>
+	<footer>
+	</footer>
+</html>
